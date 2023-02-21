@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package todo;
+
+option go_package = "github.com/nuea/todo-grpc-golang/todo/proto";
+
+import "google/protobuf/empty.proto";
+
+message Todo {
+    string  id = 1;
+    string  title = 2;
+    string  description = 3;
+    bool    status = 4;
+}
+
+message TodoResponse {
+    Todo todo = 1;
+}
+
+message TodoId {
+    string id = 1;
+}
+
+service TodoService {
+    rpc CreateTodo (Todo) returns (TodoResponse);
+    rpc ReadTodo (TodoId) returns (TodoResponse);
+    rpc UpdateTodo (Todo) returns (TodoResponse);
+    rpc DeleteTodo (TodoId) returns (google.protobuf.Empty);
+    rpc ListTodos (google.protobuf.Empty) returns (stream TodoResponse);
+}

@@ -1,0 +1,38 @@
+version: '3.3'
+
+networks:
+  database:
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+    container_name: mongo
+    # networks:
+    #   - database
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - 27017:27017
+
+  redis: 
+    image: redis
+    restart: always
+    container_name: redis
+    volumes:
+      - redis:/data
+    ports:
+      - 6379:6379
+    
+  # mongo-express:
+  #   image: mongo-express
+  #   restart: always
+  #   container_name: mongo-express
+  #   networks:
+  #     - database
+  #   ports:
+  #     - 8081:8081
+
+volumes:
+  mongo-data:
+  redis:
